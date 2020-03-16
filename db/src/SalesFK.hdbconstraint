@@ -1,0 +1,3 @@
+CONSTRAINT SALES_FK
+ON "Sales.Item" FOREIGN KEY ("header.id") 
+REFERENCES "Sales.Header" ("id") ON UPDATE CASCADE 

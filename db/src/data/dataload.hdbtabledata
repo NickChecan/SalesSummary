@@ -1,0 +1,29 @@
+{
+	"format_version": 1,
+	"imports": [
+		{
+			"target_table": "Sales.Header",
+			"source_data": {
+				"data_type": "CSV",
+				"file_name": "sales_header.csv",
+				"has_header": true,
+				"dialect": "HANA",
+				"type_config": {
+					"delimiter": ","
+				}
+			}
+		},
+		{
+			"target_table": "Sales.Item",
+			"source_data": {
+				"data_type": "CSV",
+				"file_name": "sales_item.csv",
+				"has_header": true,
+				"dialect": "HANA",
+				"type_config": {
+					"delimiter": ","
+				}
+			}
+		}
+	]
+}	

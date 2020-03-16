@@ -2,3 +2,19 @@ ID: SalesSummary
 _schema-version: '2.1'
 description: Sales Summary Project
 version: 0.0.1
+modules:
+  - name: db
+    type: hdb
+    path: db
+    requires:
+      - name: hdi_db
+
+  
+
+resources:
+  - name: hdi_db
+    properties:
+      hdi-container-name: '${service-name}'
+    type: com.sap.xs.hdi-container
+    parameters:
+      service-name: sales-hdi
