@@ -1,7 +1,12 @@
 {
   "dependencies": {
-  	"body-parser": "^1.19.0",
-	"express": "^4.17.1"
+  		"@sap/cds": "^3.10.0",
+		"@sap/xssec": "2.1.12",
+		"@sap/xsenv": "1.2.9",
+		"@sap/hdbext": "4.7.2",
+		"sap-hdbext-promisfied": "latest",
+		"express": "~4.16",
+		"passport": "~0.4.0"
   },
   "description": "Service layer for the Sales Summary application",
   "devDependencies": {
@@ -19,5 +24,10 @@
   "engines": {
     "node": "10.x"
   },
-  "version": "1.0.0"
+  "version": "1.0.0",
+  "cds": {
+		"data": {
+			"driver": "hana"
+		}
+	}
 }

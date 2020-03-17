@@ -1,37 +1,30 @@
-/*eslint no-console: 0*/
+/*eslint no-console: 0, no-unused-vars: 0, no-undef:0*/
+/*eslint-env node, es6 */
 "use strict";
 
-const express = require("express");
-const bodyParser = require("body-parser");
+var http = require("http");
+var port = process.env.PORT || 3000;
+var server = require("http").createServer();
+
+//Initialize Express App for XSA UAA and HDBEXT Middleware
+var xsenv = require("@sap/xsenv");
+var xssec = require("@sap/xssec");
+var xsHDBConn = require("@sap/hdbext");
+var express = require("express");
+
+//Initialize Express App for XS UAA and HDBEXT Middleware
 var app = express();
 
-// Define which port will run the application
-var port = process.env.PORT || 3000;
+var hanaOptions = xsenv.getServices({hana: {tag: "hana"}});
 
-// Prepare app to automatically understand content-type json 
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+app.use(xsHDBConn.middleware(hanaOptions.hana));
 
-// Get request example
-app.get('/', (req, res) => res.send("Hello World!"));
+// Setup Routes
+var router = require("./router")(app);
 
-// Request Example: {url}/read/1?name=Nicholas
-app.get('/read/:num', (req, res) => {
-    let name = req.query.name
-    console.log(name)
-    let num = req.params.num
-    if (num > 5) res.send("Greater than 5!")
-    else res.send("Less than 5!")
+// Start the Server 
+server.on("request", app);
+
+server.listen(port, function() {
+	console.info(`HTTP Server: ${server.address().port}`);
 });
-
-// Post request example
-app.post('/save', (req, res) => {
-    let name = req.body.name
-    let number = req.body.number
-    console.log("Received name: " + name + ". Received number: " + number)
-    res.send("Ok!")
-    res.status(204)
-})
-
-// Enable the server to be accessed
-app.listen(port, () => console.log(`Listening on port ${port}!`));
