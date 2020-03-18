@@ -2,29 +2,30 @@
 /*eslint-env node, es6 */
 "use strict";
 
-var http = require("http");
+const http = require("http");
+const xsenv = require("@sap/xsenv");
+const xssec = require("@sap/xssec");
+const xsHDBConn = require("@sap/hdbext");
+const express = require("express");
+
+// Set server configuration
 var port = process.env.PORT || 3000;
-var server = require("http").createServer();
+var server = http.createServer();
 
-//Initialize Express App for XSA UAA and HDBEXT Middleware
-var xsenv = require("@sap/xsenv");
-var xssec = require("@sap/xssec");
-var xsHDBConn = require("@sap/hdbext");
-var express = require("express");
-
-//Initialize Express App for XS UAA and HDBEXT Middleware
+// Initialize Express to set application middlewares and manage the available services
 var app = express();
 
+// Get HANA database connection details
 var hanaOptions = xsenv.getServices({hana: {tag: "hana"}});
 
+// Set middleware to provide HANA database connection
 app.use(xsHDBConn.middleware(hanaOptions.hana));
 
 // Setup Routes
 var router = require("./router")(app);
 
-// Start the Server 
+// Start the Web Server
 server.on("request", app);
 
-server.listen(port, function() {
-	console.info(`HTTP Server: ${server.address().port}`);
-});
+// Enable port access and log operation details
+server.listen(port, () => console.info(`HTTP Server: ${server.address().port}`));

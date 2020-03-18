@@ -1,0 +1,12 @@
+PROCEDURE "createSalesOrder" ( 
+	in REGION_NAME NVARCHAR(100),
+	in SUB_REGION NVARCHAR(100)
+) 
+LANGUAGE SQLSCRIPT
+SQL SECURITY INVOKER 
+AS BEGIN
+
+	INSERT INTO "Sales.Header" ("region.name", "region.subRegion", "date") 
+	VALUES (REGION_NAME, SUB_REGION, CURRENT_DATE);
+
+END;

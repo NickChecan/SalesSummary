@@ -1,16 +1,18 @@
 /*eslint no-console: 0, no-unused-vars: 0, no-shadow: 0, new-cap: 0*/
 /*eslint-env node, es6 */
 "use strict";
+
 var express = require("express");
+
 module.exports = function() {
+	
 	var app = express.Router();
 
-	//Hello Router
+	// Hello World Router
 	app.get("/", (req, res) => {
 		const dbClass = require("sap-hdbext-promisfied");
 		let db = new dbClass(req.db);
-		db.preparePromisified(`SELECT SESSION_USER, CURRENT_SCHEMA 
-				            	 FROM "DUMMY"`)
+		db.preparePromisified(`SELECT SESSION_USER, CURRENT_SCHEMA FROM "DUMMY"`)
 			.then(statement => {
 				db.statementExecPromisified(statement, [])
 					.then(results => {
@@ -29,4 +31,5 @@ module.exports = function() {
 	});
 
 	return app;
+	
 };

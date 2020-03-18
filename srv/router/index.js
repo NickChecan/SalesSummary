@@ -2,5 +2,6 @@
 "use strict";
 
 module.exports = (app) => {
-		 app.use("/node", require("./routes/node")());
+	app.use("/hello", require("./routes/hello")());
+	app.use("/sales", require("./routes/sales")());
 };
