@@ -1,5 +1,6 @@
 {
   "dependencies": {
+  		"body-parser": "^1.19.0",
   		"@sap/cds": "^3.10.0",
 		"@sap/xssec": "2.1.12",
 		"@sap/xsenv": "1.2.9",

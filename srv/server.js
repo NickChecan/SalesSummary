@@ -7,6 +7,7 @@ const xsenv = require("@sap/xsenv");
 const xssec = require("@sap/xssec");
 const xsHDBConn = require("@sap/hdbext");
 const express = require("express");
+const bodyParser = require("body-parser");
 
 // Set server configuration
 var port = process.env.PORT || 3000;
@@ -14,6 +15,10 @@ var server = http.createServer();
 
 // Initialize Express to set application middlewares and manage the available services
 var app = express();
+
+// Prepare app to automatically understand content-type json 
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 // Get HANA database connection details
 var hanaOptions = xsenv.getServices({hana: {tag: "hana"}});
