@@ -4,7 +4,6 @@
 
 const http = require("http");
 const xsenv = require("@sap/xsenv");
-const xssec = require("@sap/xssec");
 const xsHDBConn = require("@sap/hdbext");
 const express = require("express");
 const bodyParser = require("body-parser");
